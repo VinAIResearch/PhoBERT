@@ -99,7 +99,7 @@ print(topk_filled_outputs)
 Model | #params | size | Download
 ---|---|---|---
 `PhoBERT-base` | 135M | 307MB | [PhoBERT_base_transformers.tar.gz](https://public.vinai.io/PhoBERT_base_transformers.tar.gz)
-`PhoBERT-large` | 370M | 834GB | [PhoBERT_large_transformers.tar.gz](https://public.vinai.io/PhoBERT_large_transformers.tar.gz)
+`PhoBERT-large` | 370M | 834MB | [PhoBERT_large_transformers.tar.gz](https://public.vinai.io/PhoBERT_large_transformers.tar.gz)
 
 `PhoBERT-base`:
  - `wget https://public.vinai.io/PhoBERT_base_transformers.tar.gz`
