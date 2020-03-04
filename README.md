@@ -221,7 +221,6 @@ line = "Tôi là sinh_viên trường đại_học Công_nghệ ."
 # Load the dictionary  
 vocab = Dictionary()
 vocab.add_from_file("/Absolute-path-to/PhoBERT_base_transformers/dict.txt")
-pad_token = vocab.index("<pad>")
 
 # Encode the line using fast BPE & Add prefix <s> and suffix </s> 
 subwords = '<s> ' + bpe.encode(line) + ' </s>'
