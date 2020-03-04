@@ -1,5 +1,25 @@
 # PhoBERT: Pre-trained language models for Vietnamese
 
+Hacky way to run [VnCoreNLP](https://github.com/vncorenlp/VnCoreNLP)'s tokenizer with PhoBERT
+
+`dict.txt` is obtained by running ```phobert.task.source_dictionary.save(open("dict.txt", "w"))```
+
+Examples:
+```python
+from hacky_phobert_tokenizer import PhoBertTokenizer
+
+tokenizer = PhoBertTokenizer(vncore=False)
+sentence = "Tôi là sinh viên trường đại học Công nghệ"  
+
+tokens = tokenizer.encode(sentence)  # tensor([   0,  218,    8,  418, 1430,  212, 2919,  222, 3344, 5116,    2])
+print(tokenizer.decode(tokens, remove_underscore=False))  #  Tôi là sinh viên trường đại học Công nghệ
+
+tokenizer.vncore = True  # using VnCoreNLP word tokenizer
+tokens = tokenizer.encode(sentence)  # tensor([   0,  218,    8,  649,  212,  956, 2413,    2])
+print(tokenizer.decode(tokens, remove_underscore=False))  #  Tôi là sinh_viên trường đại_học Công_nghệ
+```
+
+---
 Pre-trained PhoBERT models are the state-of-the-art language models for Vietnamese ([Pho](https://en.wikipedia.org/wiki/Pho), i.e. "Phở", is a popular food in Vietnam): 
 
  - Two versions of PhoBERT "base" and "large" are the first public large-scale monolingual language models pre-trained for Vietnamese. PhoBERT pre-training approach is based on [RoBERTa](https://github.com/pytorch/fairseq/blob/master/examples/roberta/README.md)  which optimizes the [BERT](https://github.com/google-research/bert) pre-training method for more robust performance.
