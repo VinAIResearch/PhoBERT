@@ -225,7 +225,7 @@ vocab.add_from_file("/Absolute-path-to/PhoBERT_base_transformers/dict.txt")
 # Encode the line using fast BPE & Add prefix <s> and suffix </s> 
 subwords = '<s> ' + bpe.encode(line) + ' </s>'
 
-# Map subword tokens to corresponding indices in the vocabulary & Pad the sequence up to max_length
+# Map subword tokens to corresponding indices in the dictionary
 input_ids = vocab.encode_line(subwords, append_eos=False, add_if_not_exist=False).long().tolist()
 
 # Convert into torch tensor
