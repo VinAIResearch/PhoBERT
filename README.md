@@ -129,7 +129,7 @@ phobert.bpe = fastBPE(args) #Incorporate the BPE encoder into PhoBERT
 line = "Tôi là sinh_viên trường đại_học Công_nghệ ."  # INPUT TEXT IS WORD-SEGMENTED!
 subwords = phobert.encode(line)  
 last_layer_features = phobert.extract_features(subwords)  
-assert last_layer_features.size() == torch.Size([1, 8, 768])  
+assert last_layer_features.size() == torch.Size([1, 9, 768])  
   
 # Extract all layer's features (layer 0 is the embedding layer)  
 all_layers = phobert.extract_features(subwords, return_all_hiddens=True)  
