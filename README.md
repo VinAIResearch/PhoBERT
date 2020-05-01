@@ -233,7 +233,7 @@ with torch.no_grad():
     features = phobert(all_input_ids)  
   
 # Represent each word by the contextualized embedding of its first subword token  
-# i. Get indices of first subword tokens of words in the input sentence 
+# i. Get indices of the first subword tokens of words in the input sentence 
 listSWs = subwords.split()  
 firstSWindices = []  
 for ind in range(1, len(listSWs) - 1):  
