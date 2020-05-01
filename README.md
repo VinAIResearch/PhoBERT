@@ -19,10 +19,10 @@
 
 Pre-trained PhoBERT models are the state-of-the-art language models for Vietnamese ([Pho](https://en.wikipedia.org/wiki/Pho), i.e. "Phở", is a popular food in Vietnam): 
 
- - Two versions of PhoBERT "base" and "large" are the first public large-scale monolingual language models pre-trained for Vietnamese. PhoBERT pre-training approach is based on [RoBERTa](https://github.com/pytorch/fairseq/blob/master/examples/roberta/README.md)  which optimizes the [BERT](https://github.com/google-research/bert) pre-training method for more robust performance.
- - PhoBERT outperforms previous monolingual and multilingual approaches, obtaining new state-of-the-art performances on three downstream Vietnamese NLP tasks of Part-of-speech tagging, Named-entity recognition and Natural language inference.
+ - Two PhoBERT versions of "base" and "large" are the first public large-scale monolingual language models pre-trained for Vietnamese. PhoBERT pre-training approach is based on [RoBERTa](https://github.com/pytorch/fairseq/blob/master/examples/roberta/README.md)  which optimizes the [BERT](https://github.com/google-research/bert) pre-training procedure for more robust performance.
+ - PhoBERT outperforms previous monolingual and multilingual approaches, obtaining new state-of-the-art performances on four downstream Vietnamese NLP tasks of Part-of-speech tagging, Dependency parsing, Named-entity recognition and Natural language inference.
 
-The general architecture and experimental results of PhoBERT can be found in our [following paper](https://arxiv.org/abs/2003.00744):
+The general architecture and experimental results of PhoBERT can be found in our [paper](https://arxiv.org/abs/2003.00744):
 
     @article{phobert,
     title     = {{PhoBERT: Pre-trained language models for Vietnamese}},
@@ -32,17 +32,16 @@ The general architecture and experimental results of PhoBERT can be found in our
     year      = {2020}
     }
 
-**Please cite** our paper when PhoBERT is used to help produce published results or incorporated into other software.
+**Please CITE** our paper when PhoBERT is used to help produce published results or incorporated into other software.
 
-## Experimental results <a name="exp"></a>
+## Main results <a name="exp"></a>
 
-<img width="900" alt="PhoBERT results: POS Tagging, NER, NLI" src="https://user-images.githubusercontent.com/2412555/75759331-f0baa580-5d67-11ea-943a-8163cf716e7e.png">
-
-Experiments show that using a straightforward finetuning manner (i.e. using AdamW with a fixed learning rate of 1.e-5 and a batch size of 32) as we use for PhoBERT can lead to state-of-the-art results. We might boost our downstream task performances even further by doing a more careful hyper-parameter fine-tuning.
+<img width="888" alt="posdep" src="https://user-images.githubusercontent.com/2412555/80791768-dc0a5a80-8bbc-11ea-964e-486280c8e616.png">
+<img width="888" alt="nernli" src="https://user-images.githubusercontent.com/2412555/80791763-d6147980-8bbc-11ea-8f11-eb4a545ad0ae.png">
 
 ## Using VnCoreNLP's word segmenter to pre-process input raw texts <a name="vncorenlp"></a>
 
-In case the input texts are `raw`, i.e. without word segmentation, a word segmenter must be applied to produce word-segmented texts before feeding to PhoBERT. As PhoBERT employed the [RDRSegmenter](https://github.com/datquocnguyen/RDRsegmenter) from [VnCoreNLP](https://github.com/vncorenlp/VnCoreNLP) to pre-process the pre-training data, it is recommended to also use [VnCoreNLP](https://github.com/vncorenlp/VnCoreNLP)-[RDRSegmenter](https://github.com/datquocnguyen/RDRsegmenter) for PhoBERT-based downstream applications w.r.t. the input raw texts.
+In case the input texts are `raw`, i.e. without word segmentation, a word segmenter must be applied to produce word-segmented texts before feeding to PhoBERT. As PhoBERT employed the [RDRSegmenter](https://github.com/datquocnguyen/RDRsegmenter) from [VnCoreNLP](https://github.com/vncorenlp/VnCoreNLP) to pre-process the pre-training data, it is recommended to also use the same word segmenter for PhoBERT-based downstream applications w.r.t. the input raw texts.
 
 ### Installation
 
@@ -87,7 +86,7 @@ print(word_segmented_text)
 ### Installation <a name="install1"></a>
 
  -  Python version >= 3.6
- - [PyTorch](http://pytorch.org/) version >= 1.2.0
+ - [PyTorch](http://pytorch.org/) version >= 1.4.0
  - [`fairseq`](https://github.com/pytorch/fairseq)
  - `fastBPE`: `pip3 install fastBPE`
 
@@ -111,6 +110,7 @@ Model | #params | size | Download
 _Assume that the input texts are already word-segmented!_
 
 ```python
+import torch
 
 # Load PhoBERT-base in fairseq
 from fairseq.models.roberta import RobertaModel
@@ -125,8 +125,10 @@ parser.add_argument('--bpe-codes', type=str, help='path to fastBPE BPE', default
 args = parser.parse_args()  
 phobert.bpe = fastBPE(args) #Incorporate the BPE encoder into PhoBERT
 
+# INPUT TEXT IS WORD-SEGMENTED!
+line = "Tôi là sinh_viên trường đại_học Công_nghệ ."  
+
 # Extract the last layer's features  
-line = "Tôi là sinh_viên trường đại_học Công_nghệ ."  # INPUT TEXT IS WORD-SEGMENTED!
 subwords = phobert.encode(line)  
 last_layer_features = phobert.extract_features(subwords)  
 assert last_layer_features.size() == torch.Size([1, 9, 768])  
@@ -135,12 +137,7 @@ assert last_layer_features.size() == torch.Size([1, 9, 768])
 all_layers = phobert.extract_features(subwords, return_all_hiddens=True)  
 assert len(all_layers) == 13  
 assert torch.all(all_layers[-1] == last_layer_features)  
-  
-# Extract features aligned to words  
-words = phobert.extract_features_aligned_to_words(line)  
-for word in words:  
-    print('{:10}{} (...)'.format(str(word), word.vector[:5]))  
-  
+
 # Filling marks  
 masked_line = 'Tôi là  <mask> trường đại_học Công_nghệ .'  
 topk_filled_outputs = phobert.fill_mask(masked_line, topk=5)  
@@ -162,7 +159,7 @@ for sentence in sentences:
 ```
 
 
-## Using PhoBERT in HuggingFace [`transformers`](https://github.com/huggingface/transformers) <a name="transformers"></a>
+## Using PhoBERT in HuggingFace's [`transformers`](https://github.com/huggingface/transformers) <a name="transformers"></a>
 
 ### Installation <a name="install2"></a>
 - Prerequisites: [Installation w.r.t. `fairseq`](#install1), and [`VnCoreNLP-RDRSegmenter` if processing raw texts](#vncorenlp)
@@ -215,14 +212,14 @@ parser.add_argument('--bpe-codes',
 args = parser.parse_args()
 bpe = fastBPE(args)
 
-# INPUT TEXT IS WORD-SEGMENTED!
-line = "Tôi là sinh_viên trường đại_học Công_nghệ ."  
-
 # Load the dictionary  
 vocab = Dictionary()
 vocab.add_from_file("/Absolute-path-to/PhoBERT_base_transformers/dict.txt")
 
-# Encode the line using fast BPE & Add prefix <s> and suffix </s> 
+# INPUT TEXT IS WORD-SEGMENTED!
+line = "Tôi là sinh_viên trường đại_học Công_nghệ ."  
+
+# Encode the line using fastBPE & Add prefix <s> and suffix </s> 
 subwords = '<s> ' + bpe.encode(line) + ' </s>'
 
 # Map subword tokens to corresponding indices in the dictionary
@@ -231,8 +228,26 @@ input_ids = vocab.encode_line(subwords, append_eos=False, add_if_not_exist=False
 # Convert into torch tensor
 all_input_ids = torch.tensor([input_ids], dtype=torch.long)
 
-# Extract features
-features = phobert(all_input_ids)
+# Extract features  
+with torch.no_grad():  
+    features = phobert(all_input_ids)  
+  
+# Represent each word by the contextualized embedding of its first subword token  
+# i. Get indices of first subword tokens of words in the input sentence 
+listSWs = subwords.split()  
+firstSWindices = []  
+for ind in range(1, len(listSWs) - 1):  
+    if not listSWs[ind - 1].endswith("@@"):  
+        firstSWindices.append(ind)  
+
+# ii. Extract the corresponding contextualized embeddings  
+words = line.split()  
+assert len(firstSWindices) == len(words)  
+vectorSize = features[0][0, 0, :].size()[0]  
+for word, index in zip(words, firstSWindices):  
+    print(word + " --> " + " ".join([str(features[0][0, index, :][_ind].item()) for _ind in range(vectorSize)]))
+    # print(word + " --> " + listSWs[index] + " --> " + " ".join([str(features[0][0, index, :][_ind].item()) for _ind in range(vectorSize)]))
+
 ```
 
 
