@@ -153,7 +153,7 @@ text = "Tôi là sinh viên trường đại học Công nghệ."
 sentences = rdrsegmenter.tokenize(text) 
 # Extract the last layer's features  
 for sentence in sentences:
-	subwords = phobert.encode(sentence)  
+	subwords = phobert.encode(" ".join(sentence))
 	last_layer_features = phobert.extract_features(subwords)  
 
 ```
