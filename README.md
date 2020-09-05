@@ -1,12 +1,12 @@
 
 #### Table of contents
 1. [Introduction](#introduction)
-2. [Using VnCoreNLP's word segmenter to pre-process input raw texts](#vncorenlp)
-3. [Using PhoBERT with `transformers`](#transformers)
+2. [Using PhoBERT with `transformers`](#transformers)
 	- [Installation](#install2)
 	- [Pre-trained models](#models2)
 	- [Example usage](#usage2)
-4. [Using PhoBERT with `fairseq`](#fairseq)
+3. [Using PhoBERT with `fairseq`](#fairseq)
+4. [Using VnCoreNLP's word segmenter to pre-process input raw texts](#vncorenlp)
 
 
 
@@ -30,44 +30,6 @@ The general architecture and experimental results of PhoBERT can be found in our
     }
 
 **Please CITE** our paper when PhoBERT is used to help produce published results or is incorporated into other software.
-
-## <a name="vncorenlp"></a> Using VnCoreNLP's word segmenter to pre-process input raw texts 
-
-In case the input texts are `raw`, i.e. without word segmentation, a word segmenter must be applied to produce word-segmented texts before feeding to PhoBERT. As PhoBERT employed the [RDRSegmenter](https://github.com/datquocnguyen/RDRsegmenter) from [VnCoreNLP](https://github.com/vncorenlp/VnCoreNLP) to pre-process the pre-training data, it is recommended to also use the same word segmenter for PhoBERT-based downstream applications w.r.t. the input raw texts.
-
-### Installation
-
-	# Install the vncorenlp python wrapper
-	pip3 install vncorenlp
-	
-	# Download VnCoreNLP-1.1.1.jar & its word segmentation component (i.e. RDRSegmenter) 
-	mkdir -p vncorenlp/models/wordsegmenter
-	wget https://raw.githubusercontent.com/vncorenlp/VnCoreNLP/master/VnCoreNLP-1.1.1.jar
-	wget https://raw.githubusercontent.com/vncorenlp/VnCoreNLP/master/models/wordsegmenter/vi-vocab
-	wget https://raw.githubusercontent.com/vncorenlp/VnCoreNLP/master/models/wordsegmenter/wordsegmenter.rdr
-	mv VnCoreNLP-1.1.1.jar vncorenlp/ 
-	mv vi-vocab vncorenlp/models/wordsegmenter/
-	mv wordsegmenter.rdr vncorenlp/models/wordsegmenter/
-
-`VnCoreNLP-1.1.1.jar` (27MB) and folder `models` must be placed in the same working folder, here is `vncorenlp`!
-
-### Example usage
-
-```python
-# See more details at: https://github.com/vncorenlp/VnCoreNLP
-
-# Load rdrsegmenter from VnCoreNLP
-from vncorenlp import VnCoreNLP
-rdrsegmenter = VnCoreNLP("/Absolute-path-to/vncorenlp/VnCoreNLP-1.1.1.jar", annotators="wseg", max_heap_size='-Xmx500m') 
-
-# Input 
-text = "Ông Nguyễn Khắc Chúc  đang làm việc tại Đại học Quốc gia Hà Nội. Bà Lan, vợ ông Chúc, cũng làm việc tại đây."
-
-# To perform word (and sentence) segmentation
-sentences = rdrsegmenter.tokenize(text) 
-for sentence in sentences:
-	print(" ".join(sentence))
-```
 
 ## <a name="transformers"></a> Using PhoBERT with `transformers` 
 
@@ -115,6 +77,44 @@ with torch.no_grad():
 ## <a name="fairseq"></a> Using PhoBERT with `fairseq`
 
 Please see details at [HERE](https://github.com/VinAIResearch/PhoBERT/blob/master/README_fairseq_and_old_transformers_version.md)!
+
+## <a name="vncorenlp"></a> Using VnCoreNLP's word segmenter to pre-process input raw texts 
+
+In case the input texts are `raw`, i.e. without word segmentation, a word segmenter must be applied to produce word-segmented texts before feeding to PhoBERT. As PhoBERT employed the [RDRSegmenter](https://github.com/datquocnguyen/RDRsegmenter) from [VnCoreNLP](https://github.com/vncorenlp/VnCoreNLP) to pre-process the pre-training data, it is recommended to also use the same word segmenter for PhoBERT-based downstream applications w.r.t. the input raw texts.
+
+### Installation
+
+	# Install the vncorenlp python wrapper
+	pip3 install vncorenlp
+	
+	# Download VnCoreNLP-1.1.1.jar & its word segmentation component (i.e. RDRSegmenter) 
+	mkdir -p vncorenlp/models/wordsegmenter
+	wget https://raw.githubusercontent.com/vncorenlp/VnCoreNLP/master/VnCoreNLP-1.1.1.jar
+	wget https://raw.githubusercontent.com/vncorenlp/VnCoreNLP/master/models/wordsegmenter/vi-vocab
+	wget https://raw.githubusercontent.com/vncorenlp/VnCoreNLP/master/models/wordsegmenter/wordsegmenter.rdr
+	mv VnCoreNLP-1.1.1.jar vncorenlp/ 
+	mv vi-vocab vncorenlp/models/wordsegmenter/
+	mv wordsegmenter.rdr vncorenlp/models/wordsegmenter/
+
+`VnCoreNLP-1.1.1.jar` (27MB) and folder `models` must be placed in the same working folder, here is `vncorenlp`!
+
+### Example usage
+
+```python
+# See more details at: https://github.com/vncorenlp/VnCoreNLP
+
+# Load rdrsegmenter from VnCoreNLP
+from vncorenlp import VnCoreNLP
+rdrsegmenter = VnCoreNLP("/Absolute-path-to/vncorenlp/VnCoreNLP-1.1.1.jar", annotators="wseg", max_heap_size='-Xmx500m') 
+
+# Input 
+text = "Ông Nguyễn Khắc Chúc  đang làm việc tại Đại học Quốc gia Hà Nội. Bà Lan, vợ ông Chúc, cũng làm việc tại đây."
+
+# To perform word (and sentence) segmentation
+sentences = rdrsegmenter.tokenize(text) 
+for sentence in sentences:
+	print(" ".join(sentence))
+```
 
 
 ## License
