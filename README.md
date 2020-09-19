@@ -73,7 +73,7 @@ with torch.no_grad():
 
 ## <a name="fairseq"></a> Using PhoBERT with `fairseq`
 
-Please see details at [HERE](https://github.com/VinAIResearch/PhoBERT/blob/master/README_fairseq_and_old_transformers_version.md)!
+Please see details at [HERE](https://github.com/VinAIResearch/PhoBERT/blob/master/README_fairseq.md)!
 
 ## <a name="vncorenlp"></a> Using VnCoreNLP's word segmenter to pre-process input raw texts 
 
