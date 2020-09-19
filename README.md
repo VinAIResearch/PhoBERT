@@ -33,14 +33,11 @@ The general architecture and experimental results of PhoBERT can be found in our
 ## <a name="transformers"></a> Using PhoBERT with `transformers` 
 
 ### Installation <a name="install2"></a>
- -  Python version >= 3.6
- - [PyTorch](http://pytorch.org/) version >= 1.4.0
--  Install `transformers` from our development branch:
-	- `git clone https://github.com/datquocnguyen/transformers.git`
+ -  Python 3.6+, and PyTorch 1.1.0+ or TensorFlow 2.0+
+ -  Install `transformers`:
+	- `git clone https://github.com/huggingface/transformers.git`
 	- `cd transformers`
-	- `pip install --upgrade .`
-
-We also created a pull request to integrate PhoBERT into the master branch of the `transformers` library. Please see the latest updates at:  https://github.com/huggingface/transformers/pull/6129
+	- `pip3 install --upgrade .`
 
 ### Pre-trained models <a name="models2"></a>
 
@@ -54,11 +51,15 @@ Model | #params | Arch.	 | Pre-training data
 
 ```python
 import torch
-from transformers import AutoModel, AutoTokenizer #, PhobertTokenizer
+from transformers import AutoModel, AutoTokenizer
 
 phobert = AutoModel.from_pretrained("vinai/phobert-base")
 tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-base")
-#tokenizer = PhobertTokenizer.from_pretrained("vinai/phobert-base")
+
+## With TensorFlow 2.0+:
+# from transformers import TFAutoModel, TFAutoTokenizer
+# phobert = TFAutoModel.from_pretrained("vinai/phobert-base")
+# tokenizer = TFAutoTokenizer.from_pretrained("vinai/phobert-base")
 
 # INPUT TEXT MUST BE ALREADY WORD-SEGMENTED!
 line = "Tôi là sinh_viên trường đại_học Công_nghệ ."
