@@ -8,10 +8,6 @@
 3. [Using PhoBERT with `fairseq`](#fairseq)
 4. [Using VnCoreNLP's word segmenter to pre-process input raw texts](#vncorenlp)
 
-
-
-
-
 # <a name="introduction"></a> PhoBERT: Pre-trained language models for Vietnamese 
 
 Pre-trained PhoBERT models are the state-of-the-art language models for Vietnamese ([Pho](https://en.wikipedia.org/wiki/Pho), i.e. "Phở", is a popular food in Vietnam): 
@@ -33,7 +29,7 @@ The general architecture and experimental results of PhoBERT can be found in our
 ## <a name="transformers"></a> Using PhoBERT with `transformers` 
 
 ### Installation <a name="install2"></a>
- -  Python 3.6+, and PyTorch 1.1.0+ or TensorFlow 2.0+
+ -  Python 3.6+, and PyTorch 1.1.0+ (or TensorFlow 2.0+)
  -  Install `transformers`:
 	- `git clone https://github.com/huggingface/transformers.git`
 	- `cd transformers`
@@ -56,11 +52,6 @@ from transformers import AutoModel, AutoTokenizer
 phobert = AutoModel.from_pretrained("vinai/phobert-base")
 tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-base")
 
-## With TensorFlow 2.0+:
-# from transformers import TFAutoModel, TFAutoTokenizer
-# phobert = TFAutoModel.from_pretrained("vinai/phobert-base")
-# tokenizer = TFAutoTokenizer.from_pretrained("vinai/phobert-base")
-
 # INPUT TEXT MUST BE ALREADY WORD-SEGMENTED!
 line = "Tôi là sinh_viên trường đại_học Công_nghệ ."
 
@@ -68,6 +59,10 @@ input_ids = torch.tensor([tokenizer.encode(line)])
 
 with torch.no_grad():
     features = phobert(input_ids)  # Models outputs are now tuples
+
+## With TensorFlow 2.0+:
+# from transformers import TFAutoModel
+# phobert = TFAutoModel.from_pretrained("vinai/phobert-base")
 ```
 
 
