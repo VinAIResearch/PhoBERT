@@ -15,12 +15,12 @@ Pre-trained PhoBERT models are the state-of-the-art language models for Vietname
  - Two PhoBERT versions of "base" and "large" are the first public large-scale monolingual language models pre-trained for Vietnamese. PhoBERT pre-training approach is based on [RoBERTa](https://github.com/pytorch/fairseq/blob/master/examples/roberta/README.md)  which optimizes the [BERT](https://github.com/google-research/bert) pre-training procedure for more robust performance.
  - PhoBERT outperforms previous monolingual and multilingual approaches, obtaining new state-of-the-art performances on four downstream Vietnamese NLP tasks of Part-of-speech tagging, Dependency parsing, Named-entity recognition and Natural language inference.
 
-The general architecture and experimental results of PhoBERT can be found in our EMNLP-2020 Findings [paper](https://www.aclweb.org/anthology/2020.findings-emnlp.92/):
+The general architecture and experimental results of PhoBERT can be found in our [paper](https://www.aclweb.org/anthology/2020.findings-emnlp.92/):
 
     @inproceedings{phobert,
     title     = {{PhoBERT: Pre-trained language models for Vietnamese}},
     author    = {Dat Quoc Nguyen and Anh Tuan Nguyen},
-    booktitle = {Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing: Findings},
+    booktitle = {Findings of the Association for Computational Linguistics: EMNLP 2020},
     year      = {2020},
     pages     = {1037--1042}
     }
