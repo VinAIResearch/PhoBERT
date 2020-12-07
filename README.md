@@ -51,7 +51,12 @@ import torch
 from transformers import AutoModel, AutoTokenizer
 
 phobert = AutoModel.from_pretrained("vinai/phobert-base")
-tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-base")
+
+# For transformers v4.x+: 
+tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-base", use_fast=False)
+
+# For transformers v3.x: 
+# tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-base")
 
 # INPUT TEXT MUST BE ALREADY WORD-SEGMENTED!
 line = "Tôi là sinh_viên trường đại_học Công_nghệ ."
