@@ -78,7 +78,7 @@ Please see details at [HERE](https://github.com/VinAIResearch/PhoBERT/blob/maste
 
 ## <a name="vncorenlp"></a> Using VnCoreNLP's word segmenter to pre-process input raw texts 
 
-In case the input texts are `raw`, i.e. without word segmentation, a word segmenter must be applied to produce word-segmented texts before feeding to PhoBERT. As PhoBERT employed the [RDRSegmenter](https://github.com/datquocnguyen/RDRsegmenter) from [VnCoreNLP](https://github.com/vncorenlp/VnCoreNLP) to pre-process the pre-training data, it is recommended to also use the same word segmenter for PhoBERT-based downstream applications w.r.t. the input raw texts.
+In case the input texts are `raw`, i.e. without word segmentation, a word segmenter must be applied to produce word-segmented texts before feeding to PhoBERT. As PhoBERT employed the [RDRSegmenter](https://github.com/datquocnguyen/RDRsegmenter) from [VnCoreNLP](https://github.com/vncorenlp/VnCoreNLP) to pre-process the pre-training data (including [Vietnamese tone normalization](https://github.com/VinAIResearch/BARTpho/blob/main/VietnameseToneNormalization.md) and word and sentence segmentation), it is recommended to also use the same word segmenter for PhoBERT-based downstream applications w.r.t. the input raw texts.
 
 ### Installation
 
