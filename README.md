@@ -6,7 +6,7 @@
 	- [Pre-trained models](#models2)
 	- [Example usage](#usage2)
 3. [Using PhoBERT with `fairseq`](#fairseq)
-4. [Using VnCoreNLP's word segmenter to pre-process input raw texts](#vncorenlp)
+4. [Notes](#vncorenlp)
 
 # <a name="introduction"></a> PhoBERT: Pre-trained language models for Vietnamese 
 
@@ -76,7 +76,7 @@ with torch.no_grad():
 
 Please see details at [HERE](https://github.com/VinAIResearch/PhoBERT/blob/master/README_fairseq.md)!
 
-## <a name="vncorenlp"></a> Using VnCoreNLP's word segmenter to pre-process input raw texts 
+## <a name="vncorenlp"></a> Notes 
 
 In case the input texts are `raw`, i.e. without word segmentation, a word segmenter must be applied to produce word-segmented texts before feeding to PhoBERT. As PhoBERT employed the [RDRSegmenter](https://github.com/datquocnguyen/RDRsegmenter) from [VnCoreNLP](https://github.com/vncorenlp/VnCoreNLP) to pre-process the pre-training data (including [Vietnamese tone normalization](https://github.com/VinAIResearch/BARTpho/blob/main/VietnameseToneNormalization.md) and word and sentence segmentation), it is recommended to also use the same word segmenter for PhoBERT-based downstream applications w.r.t. the input raw texts.
 
