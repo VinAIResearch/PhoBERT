@@ -50,16 +50,8 @@ import torch
 
 # Load PhoBERT-base in fairseq
 from fairseq.models.roberta import RobertaModel
-phobert = RobertaModel.from_pretrained('/Absolute-path-to/PhoBERT_base_fairseq', checkpoint_file='model.pt')
-phobert.eval()  # disable dropout (or leave in train mode to finetune)
-
-# Incorporate the BPE encoder into PhoBERT-base 
-from fairseq.data.encoders.fastbpe import fastBPE  
-from fairseq import options  
-parser = options.get_preprocessing_parser()  
-parser.add_argument('--bpe-codes', type=str, help='path to fastBPE BPE', default="/Absolute-path-to/PhoBERT_base_fairseq/bpe.codes")  
-args = parser.parse_args()  
-phobert.bpe = fastBPE(args) #Incorporate the BPE encoder into PhoBERT
+bpe_codes_file = '/Absolute-path-to/PhoBERT_base_fairseq/' + 'bpe.codes'
+phobert = RobertaModel.from_pretrained('/Absolute-path-to/PhoBERT_base_fairseq', checkpoint_file='model.pt', bpe='fastbpe', bpe_codes=bpe_codes_file).eval()
 
 # INPUT TEXT IS WORD-SEGMENTED!
 line = "Tôi là sinh_viên trường đại_học Công_nghệ ."  
