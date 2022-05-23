@@ -39,10 +39,10 @@ The general architecture and experimental results of PhoBERT can be found in our
 ### Pre-trained models <a name="models2"></a>
 
 
-Model | #params | Arch.	 | Pre-training data
----|---|---|---
-`vinai/phobert-base` | 135M | base | 20GB  of texts
-`vinai/phobert-large` | 370M | large | 20GB  of texts
+Model | #params | Arch.	 | Max length | Pre-training data
+---|---|---|---|---
+`vinai/phobert-base` | 135M | base | 256 | 20GB  of texts
+`vinai/phobert-large` | 370M | large | 256 | 20GB  of texts
 
 ### Example usage <a name="usage2"></a>
 
