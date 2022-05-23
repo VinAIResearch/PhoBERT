@@ -50,7 +50,7 @@ import torch
 
 # Load PhoBERT-base in fairseq
 from fairseq.models.roberta import RobertaModel
-bpe_codes_file = '/Absolute-path-to/PhoBERT_base_fairseq/' + 'bpe.codes'
+bpe_codes_file = '/Absolute-path-to/PhoBERT_base_fairseq/bpe.codes'
 phobert = RobertaModel.from_pretrained('/Absolute-path-to/PhoBERT_base_fairseq', checkpoint_file='model.pt', bpe='fastbpe', bpe_codes=bpe_codes_file).eval()
 
 # INPUT TEXT IS WORD-SEGMENTED!
