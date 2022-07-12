@@ -83,38 +83,27 @@ In case the input texts are `raw`, i.e. without word segmentation, a word segmen
 
 ### Installation
 
-	# Install the vncorenlp python wrapper
-	pip3 install vncorenlp
-	
-	# Download VnCoreNLP-1.1.1.jar & its word segmentation component (i.e. RDRSegmenter) 
-	mkdir -p vncorenlp/models/wordsegmenter
-	wget https://raw.githubusercontent.com/vncorenlp/VnCoreNLP/master/VnCoreNLP-1.1.1.jar
-	wget https://raw.githubusercontent.com/vncorenlp/VnCoreNLP/master/models/wordsegmenter/vi-vocab
-	wget https://raw.githubusercontent.com/vncorenlp/VnCoreNLP/master/models/wordsegmenter/wordsegmenter.rdr
-	mv VnCoreNLP-1.1.1.jar vncorenlp/ 
-	mv vi-vocab vncorenlp/models/wordsegmenter/
-	mv wordsegmenter.rdr vncorenlp/models/wordsegmenter/
+    pip install py_vncorenlp
 
-`VnCoreNLP-1.1.1.jar` (27MB) and folder `models` must be placed in the same working folder, here is `vncorenlp`!
-
-### Example usage
+## Example usage <a name="example"></a>
 
 ```python
-# See more details at: https://github.com/vncorenlp/VnCoreNLP
+import py_vncorenlp
 
-# Load rdrsegmenter from VnCoreNLP
-from vncorenlp import VnCoreNLP
-rdrsegmenter = VnCoreNLP("/Absolute-path-to/vncorenlp/VnCoreNLP-1.1.1.jar", annotators="wseg", max_heap_size='-Xmx500m') 
+# Automatically download VnCoreNLP models from the original repository
+# and save them in some local machine folder
+py_vncorenlp.download_model(save_dir='./vncorenlp')
 
-# Input 
+# Load the word and sentence segmentation component
+rdrsegmenter = py_vncorenlp.VnCoreNLP(annotators=["wseg"], save_dir='./vncorenlp')
+
 text = "Ông Nguyễn Khắc Chúc  đang làm việc tại Đại học Quốc gia Hà Nội. Bà Lan, vợ ông Chúc, cũng làm việc tại đây."
 
-# To perform word (and sentence) segmentation
-sentences = rdrsegmenter.tokenize(text) 
-for sentence in sentences:
-	print(" ".join(sentence))
-```
+output = rdrsegmenter.word_segment(text)
 
+print(output)
+# ['Ông Nguyễn_Khắc_Chúc đang làm_việc tại Đại_học Quốc_gia Hà_Nội .', 'Bà Lan , vợ ông Chúc , cũng làm_việc tại đây .']
+```
 
 ## License
     
