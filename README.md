@@ -47,8 +47,9 @@ pip3 install -e .
 
 Model | #params | Arch.	 | Max length | Pre-training data
 ---|---|---|---|---
-`vinai/phobert-base` | 135M | base | 256 | 20GB  of texts
-`vinai/phobert-large` | 370M | large | 256 | 20GB  of texts
+`vinai/phobert-base` | 135M | base | 256 | 20GB  of Wikipedia and News texts
+`vinai/phobert-large` | 370M | large | 256 | 20GB  of Wikipedia and News texts
+`vinai/phobert-base-v2` | 135M | base | 256 | 20GB  of Wikipedia and News texts + 120GB of texts from OSCAR-2301
 
 ### Example usage <a name="usage2"></a>
 
@@ -56,8 +57,8 @@ Model | #params | Arch.	 | Max length | Pre-training data
 import torch
 from transformers import AutoModel, AutoTokenizer
 
-phobert = AutoModel.from_pretrained("vinai/phobert-base")
-tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-base")
+phobert = AutoModel.from_pretrained("vinai/phobert-base-v2")
+tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-base-v2")
 
 # INPUT TEXT MUST BE ALREADY WORD-SEGMENTED!
 sentence = 'Chúng_tôi là những nghiên_cứu_viên .'  
