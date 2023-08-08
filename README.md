@@ -45,11 +45,11 @@ pip3 install -e .
 ### Pre-trained models <a name="models2"></a>
 
 
-Model | #params | Arch.	 | Max length | Pre-training data
----|---|---|---|---
-`vinai/phobert-base` | 135M | base | 256 | 20GB  of Wikipedia and News texts
-`vinai/phobert-large` | 370M | large | 256 | 20GB  of Wikipedia and News texts
-`vinai/phobert-base-v2` | 135M | base | 256 | 20GB  of Wikipedia and News texts + 120GB of texts from OSCAR-2301
+Model | #params | Arch.	 | Max length | Pre-training data | License
+---|---|---|---|---|---
+`vinai/phobert-base` | 135M | base | 256 | 20GB  of Wikipedia and News texts | [MIT License](https://github.com/VinAIResearch/PhoBERT/blob/master/LICENSE)
+`vinai/phobert-large` | 370M | large | 256 | 20GB  of Wikipedia and News texts | [MIT License](https://github.com/VinAIResearch/PhoBERT/blob/master/LICENSE)
+`vinai/phobert-base-v2` | 135M | base | 256 | 20GB  of Wikipedia and News texts + 120GB of texts from OSCAR-2301 | [GNU Affero GPL v3](https://github.com/VinAIResearch/PhoBERT/blob/master/LICENSE_for_PhoBERT_v2)
 
 ### Example usage <a name="usage2"></a>
 
@@ -105,27 +105,3 @@ output = rdrsegmenter.word_segment(text)
 print(output)
 # ['Ông Nguyễn_Khắc_Chúc đang làm_việc tại Đại_học Quốc_gia Hà_Nội .', 'Bà Lan , vợ ông Chúc , cũng làm_việc tại đây .']
 ```
-
-## License
-    
-	MIT License
-
-	Copyright (c) 2020 VinAI Research
-
-	Permission is hereby granted, free of charge, to any person obtaining a copy
-	of this software and associated documentation files (the "Software"), to deal
-	in the Software without restriction, including without limitation the rights
-	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-	copies of the Software, and to permit persons to whom the Software is
-	furnished to do so, subject to the following conditions:
-
-	The above copyright notice and this permission notice shall be included in all
-	copies or substantial portions of the Software.
-
-	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-	SOFTWARE.
