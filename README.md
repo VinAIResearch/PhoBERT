@@ -27,6 +27,10 @@ The general architecture and experimental results of PhoBERT can be found in our
 
 **Please CITE** our paper when PhoBERT is used to help produce published results or is incorporated into other software.
 
+
+_Users may also want to use [BamiBERT](https://huggingface.co/Qualcomm-AI-Research/BamiBERT), our new BERT-based pretrained language model for Vietnamese that addresses key limitations of PhoBERT. Trained from scratch on a 129 GB corpus of general-domain Vietnamese text for 20 epochs, [BamiBERT](https://huggingface.co/Qualcomm-AI-Research/BamiBERT) supports an extended context length of up to 2,048 tokens and operates directly on raw input, eliminating the need for external word segmentation. Across eight Vietnamese benchmarks, it achieves the best performance on 11 of 15 metrics and the second-best performance on three others, setting a new state of the art among "base"-sized Vietnamese encoders and demonstrating strong cross-domain generalization._
+
+
 ## <a name="transformers"></a> Using PhoBERT with `transformers` 
 
 ### Installation <a name="install2"></a>
@@ -58,8 +62,8 @@ Model | #params | Arch.	 | Max length | Pre-training data | License
 import torch
 from transformers import AutoModel, AutoTokenizer
 
-phobert = AutoModel.from_pretrained("vinai/phobert-base-v2")
-tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-base-v2")
+phobert = AutoModel.from_pretrained("vinai/phobert-base")
+tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-base")
 
 # INPUT TEXT MUST BE ALREADY WORD-SEGMENTED!
 sentence = 'Chúng_tôi là những nghiên_cứu_viên .'  
